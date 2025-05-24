@@ -170,17 +170,28 @@ impl Panel for BalthazarPanel {
 
 impl Render for BalthazarPanel {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        v_flex().size_full().child(
-            h_flex()
-                .justify_between()
-                .px_2()
-                .py_1()
-                // Match the height of the tab bar so they line up.
-                .h(Tab::container_height(cx))
-                .border_b_1()
-                .border_color(cx.theme().colors().border)
-                .child(Label::new("Balthazar App"))
-                .child(Icon::new(IconName::Function)),
-        )
+        v_flex()
+            .size_full()
+            .child(
+                h_flex()
+                    .justify_between()
+                    .px_2()
+                    .py_1()
+                    // Match the height of the tab bar so they line up.
+                    .h(Tab::container_height(cx))
+                    .border_b_1()
+                    .border_color(cx.theme().colors().border)
+                    .child(Label::new("Balthazar App"))
+                    .child(Icon::new(IconName::Function)),
+            )
+            .child(
+                v_flex().justify_center().size_full().child(
+                    h_flex().justify_center().px_2().py_1().child(
+                        Button::new("blt-connect", "Connect to Balthazar")
+                            .icon(IconName::Disconnected)
+                            .icon_position(IconPosition::Start),
+                    ),
+                ),
+            )
     }
 }
