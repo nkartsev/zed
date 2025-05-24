@@ -17,7 +17,7 @@ use workspace::{
 
 use crate::panel_settings::BalthazarPanelSettings;
 
-const NOTIFICATION_PANEL_KEY: &str = "NotificationPanel";
+const BALTHAZAR_PANEL_KEY: &str = "BalthazarPanel";
 
 actions!(notification_panel, [ToggleFocus]);
 
@@ -66,7 +66,7 @@ impl BalthazarPanel {
             async move {
                 KEY_VALUE_STORE
                     .write_kvp(
-                        NOTIFICATION_PANEL_KEY.into(),
+                        BALTHAZAR_PANEL_KEY.into(),
                         serde_json::to_string(&SerializedBalthazarPanel { width })?,
                     )
                     .await?;
@@ -82,7 +82,7 @@ impl BalthazarPanel {
     ) -> Task<Result<Entity<Self>>> {
         cx.spawn(async move |cx| {
             let serialized_panel = if let Some(panel) = cx
-                .background_spawn(async move { KEY_VALUE_STORE.read_kvp(NOTIFICATION_PANEL_KEY) })
+                .background_spawn(async move { KEY_VALUE_STORE.read_kvp(BALTHAZAR_PANEL_KEY) })
                 .await
                 .log_err()
                 .flatten()
