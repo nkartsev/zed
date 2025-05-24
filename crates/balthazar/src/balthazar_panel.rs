@@ -164,7 +164,7 @@ impl Panel for BalthazarPanel {
     }
 
     fn activation_priority(&self) -> u32 {
-        8
+        1000
     }
 }
 
