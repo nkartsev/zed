@@ -1,5 +1,3 @@
-#![allow(dead_code, unused_variables, unused_mut)]
-
 use anyhow::Result;
 use db::kvp::KEY_VALUE_STORE;
 use gpui::{
@@ -9,10 +7,8 @@ use gpui::{
 use project::Fs;
 use serde::{Deserialize, Serialize};
 use settings::Settings;
-use std::{sync::Arc, time::Duration};
-use ui::{
-    Avatar, Button, Icon, IconButton, IconName, Label, Tab, Tooltip, h_flex, prelude::*, v_flex,
-};
+use std::sync::Arc;
+use ui::{Icon, IconName, Label, Tab, h_flex, prelude::*, v_flex};
 use util::{ResultExt, TryFutureExt};
 use workspace::{
     Workspace,
@@ -49,12 +45,12 @@ pub struct BalthazarPanel {
 impl BalthazarPanel {
     pub fn new(
         workspace: &mut Workspace,
-        window: &mut Window,
+        _window: &mut Window,
         cx: &mut Context<Workspace>,
     ) -> Entity<Self> {
         let fs = workspace.app_state().fs.clone();
         cx.new(|cx| {
-            let mut this = Self {
+            let this = Self {
                 fs,
                 focus_handle: cx.focus_handle(),
                 width: None,
@@ -123,7 +119,7 @@ impl Panel for BalthazarPanel {
         "BalthazarPanel"
     }
 
-    fn position(&self, window: &Window, cx: &App) -> workspace::dock::DockPosition {
+    fn position(&self, _window: &Window, cx: &App) -> workspace::dock::DockPosition {
         BalthazarPanelSettings::get_global(cx).dock
     }
 
@@ -134,7 +130,7 @@ impl Panel for BalthazarPanel {
     fn set_position(
         &mut self,
         position: workspace::dock::DockPosition,
-        window: &mut Window,
+        _window: &mut Window,
         cx: &mut Context<Self>,
     ) {
         settings::update_settings_file::<BalthazarPanelSettings>(
@@ -155,11 +151,11 @@ impl Panel for BalthazarPanel {
         cx.notify();
     }
 
-    fn icon(&self, window: &Window, cx: &App) -> Option<ui::IconName> {
+    fn icon(&self, _window: &Window, _cx: &App) -> Option<ui::IconName> {
         Some(IconName::Function)
     }
 
-    fn icon_tooltip(&self, window: &Window, cx: &App) -> Option<&'static str> {
+    fn icon_tooltip(&self, _window: &Window, _cx: &App) -> Option<&'static str> {
         Some("Balthazar Panel")
     }
 
@@ -173,7 +169,7 @@ impl Panel for BalthazarPanel {
 }
 
 impl Render for BalthazarPanel {
-    fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+    fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
         v_flex().size_full().child(
             h_flex()
                 .justify_between()

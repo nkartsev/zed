@@ -565,7 +565,7 @@ fn main() {
         language_tools::init(cx);
         call::init(app_state.client.clone(), app_state.user_store.clone(), cx);
         notifications::init(app_state.client.clone(), app_state.user_store.clone(), cx);
-        balthazar::init(&app_state, cx);
+        balthazar::init(cx);
         collab_ui::init(&app_state, cx);
         git_ui::init(cx);
         jj_ui::init(cx);
