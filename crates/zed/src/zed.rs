@@ -388,6 +388,7 @@ fn initialize_panels(
             workspace_handle.clone(),
             cx.clone(),
         );
+        let balthazar_panel = balthazar::BalthazarPanel::load(workspace_handle.clone(), cx.clone());
 
         let (
             project_panel,
@@ -396,6 +397,7 @@ fn initialize_panels(
             channels_panel,
             chat_panel,
             notification_panel,
+            balthazar_panel,
         ) = futures::try_join!(
             project_panel,
             outline_panel,
@@ -403,6 +405,7 @@ fn initialize_panels(
             channels_panel,
             chat_panel,
             notification_panel,
+            balthazar_panel,
         )?;
 
         workspace_handle.update_in(cx, |workspace, window, cx| {
@@ -412,6 +415,7 @@ fn initialize_panels(
             workspace.add_panel(channels_panel, window, cx);
             workspace.add_panel(chat_panel, window, cx);
             workspace.add_panel(notification_panel, window, cx);
+            workspace.add_panel(balthazar_panel, window, cx);
             cx.when_flag_enabled::<DebuggerFeatureFlag>(window, |_, window, cx| {
                 cx.spawn_in(
                     window,
@@ -805,6 +809,15 @@ fn register_actions(
                 workspace.toggle_panel_focus::<collab_ui::notification_panel::NotificationPanel>(
                     window, cx,
                 );
+            },
+        )
+        .register_action(
+            |workspace: &mut Workspace,
+             _: &balthazar::balthazar_panel::ToggleFocus,
+             window: &mut Window,
+             cx: &mut Context<Workspace>| {
+                workspace
+                    .toggle_panel_focus::<balthazar::balthazar_panel::BalthazarPanel>(window, cx);
             },
         )
         .register_action(

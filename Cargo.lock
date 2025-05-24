@@ -1825,6 +1825,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "balthazar"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "channel",
+ "client",
+ "collections",
+ "component",
+ "db",
+ "gpui",
+ "project",
+ "rpc",
+ "schemars",
+ "serde",
+ "serde_json",
+ "settings",
+ "sum_tree",
+ "time",
+ "ui",
+ "util",
+ "workspace",
+ "workspace-hack",
+]
+
+[[package]]
 name = "base16ct"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -19729,6 +19754,7 @@ dependencies = [
  "auto_update",
  "auto_update_ui",
  "backtrace",
+ "balthazar",
  "breadcrumbs",
  "call",
  "channel",

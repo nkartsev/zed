@@ -703,6 +703,12 @@
     // Default width of the notification panel.
     "default_width": 380
   },
+  "balthazar_panel": {
+    // Where to dock the notification panel. Can be 'left' or 'right'.
+    "dock": "right",
+    // Default width of the notification panel.
+    "default_width": 380
+  },
   "agent": {
     // Version of this setting.
     "version": "2",
